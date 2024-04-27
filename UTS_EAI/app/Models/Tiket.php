@@ -12,14 +12,11 @@ class Tiket extends Model
     protected $table = 'tiket';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id_tiket', 'id_destinasi', 'id_pengguna' ,'jumlah_tiket','total_tagihan'
+        'id_tiket', 'id_destinasi', 'nama_pengguna' ,'email_pengguna', 'jumlah_tiket','total_tagihan'
     ];
 
     public function destinasi() : BelongsTo {
         return $this->belongsTo(Destinasi::class);
-    }
-    public function pengguna() : BelongsTo {
-        return $this->belongsTo(Pengguna::class);
     }
 
     /**

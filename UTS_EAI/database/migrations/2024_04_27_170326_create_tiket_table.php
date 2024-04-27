@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ulasan', function (Blueprint $table) {
-            $table->id('id_ulasan');
+        Schema::create('tiket', function (Blueprint $table) {
+            $table->id('id_tiket');
             $table->bigInteger('id_destinasi');
-            $table->bigInteger('id_pengguna');
-            $table->string('judul_ulasan');
-            $table->text('ulasan');
-            $table->integer('rating');
+            $table->string('nama_pengguna');
+            $table->string('email_pengguna')->unique();
+            $table->integer('jumlah_tiket');
+            $table->integer('total_tagihan');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ulasan');
+        Schema::dropIfExists('tiket');
     }
 };

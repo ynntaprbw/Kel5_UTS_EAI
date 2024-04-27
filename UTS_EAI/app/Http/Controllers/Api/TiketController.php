@@ -44,10 +44,11 @@ class TiketController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'id_destinasi'      => 'required',
-            'id_pengguna'       => 'required',
-            'jumlah_tiket'      => 'required',
-            'total_tagihan'     => 'required',
+            'id_destinasi'        => 'required',
+            'nama_pengguna'       => 'required',
+            'email_pengguna'      => 'required',
+            'jumlah_tiket'        => 'required',
+            'total_tagihan'       => 'required',
         ]);
 
         //check if validation fails
@@ -61,10 +62,11 @@ class TiketController extends Controller
 
         //create post
         $tiket = Tiket::create([
-            'id_destinasi'      => $request->id_destinasi,
-            'id_pengguna'       => $request->id_pengguna,
-            'jumlah_tiket'      => $request->jumlah_tiket,
-            'total_tagihan'     => $request->total_tagihan,
+            'id_destinasi'          => $request->id_destinasi,
+            'nama_pengguna'         => $request->nama_pengguna,
+            'email_pengguna'        => $request->email_pengguna,
+            'jumlah_tiket'          => $request->jumlah_tiket,
+            'total_tagihan'         => $request->total_tagihan,
         ]);
 
         //return response
@@ -97,10 +99,11 @@ class TiketController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'id_destinasi'      => 'required',
-            'id_pengguna'       => 'required',
-            'jumlah_tiket'      => 'required',
-            'total_tagihan'     => 'required',
+            'id_destinasi'        => 'required',
+            'nama_pengguna'       => 'required',
+            'email_pengguna'      => 'required',
+            'jumlah_tiket'        => 'required',
+            'total_tagihan'       => 'required',
         ]);
 
         //check if validation fails
@@ -111,24 +114,14 @@ class TiketController extends Controller
         //find post by ID
         $tiket = Tiket::find($id);
 
-        //check if image is not empty
-        if ($request->hasFile('gambar')) {
-
-            //upload image
-            $image = $request->file('gambar');
-            $image->storeAs('public/posts', $image->hashName());
-
-            //delete old image
-            Storage::delete('public/posts/' . basename($tiket->image));
-
-            //update post with new image
-            $tiket->update([
-                'id_destinasi'      => $request->id_destinasi,
-                'id_pengguna'       => $request->id_pengguna,
-                'jumlah_tiket'      => $request->jumlah_tiket,
-                'total_tagihan'     => $request->total_tagihan,
-            ]);
-        }
+        //update post with new image
+        $tiket->update([
+            'id_destinasi'          => $request->id_destinasi,
+            'nama_pengguna'         => $request->nama_pengguna,
+            'email_pengguna'        => $request->email_pengguna,
+            'jumlah_tiket'          => $request->jumlah_tiket,
+            'total_tagihan'         => $request->total_tagihan,
+        ]);
 
         //return response
         return new TiketResource(true, 'Data tiket Berhasil Diubah!', $tiket);

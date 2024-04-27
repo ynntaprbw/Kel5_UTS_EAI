@@ -9,11 +9,7 @@ use App\Http\Controllers\Controller;
 
 //import resource PostResource
 use App\Http\Resources\DestinasiResource;
-
-//import Http request
 use Illuminate\Http\Request;
-
-//import facade Validator
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +26,7 @@ class DestinasiController extends Controller
         $destinasi = Destinasi::latest()->paginate(5);
 
         //return collection of posts as a resource
-        return new DestinasiResource(true, 'List Data Destinasi', $destinasi);
+        return new DestinasiResource(true, 'List Data Posts', $destinasi);
     }
 
     /**
@@ -39,17 +35,14 @@ class DestinasiController extends Controller
      * @param  mixed $request
      * @return void
      */
-
     public function store(Request $request)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'gambar'                  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'nama_destinasi'          => 'required',
-            'nama_penerbangan'        => 'required',
-            'harga'                   => 'required',
-            // 'tanggal_keberangkatan'   => 'required',
-            // 'jam_keberangkatan'       => 'required',
+            'image'              => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama_destinasi'     => 'required',
+            'nama_penerbangan'   => 'required',
+            'harga'              => 'required',
         ]);
 
         //check if validation fails
@@ -58,17 +51,15 @@ class DestinasiController extends Controller
         }
 
         //upload image
-        $image = $request->file('gambar');
+        $image = $request->file('image');
         $image->storeAs('public/posts', $image->hashName());
 
         //create post
         $destinasi = Destinasi::create([
-            'gambar'                  => $image->hashName(),
-            'nama_destinasi'          => $request->nama_destinasi,
-            'nama_penerbangan'        => $request->nama_penerbangan,
-            'harga'                   => $request->harga,
-            // 'tanggal_keberangkatan'   => $request->tanggal_keberangkatan,
-            // 'jam_keberangkatan'       => $request->jam_keberangkatan,
+            'image'              => $image->hashName(),
+            'nama_destinasi'     => $request->nama_destinasi,
+            'nama_penerbangan'   => $request->nama_penerbangan,
+            'harga'              => $request->harga,
         ]);
 
         //return response
@@ -101,12 +92,9 @@ class DestinasiController extends Controller
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'gambar'                  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'nama_destinasi'          => 'required',
-            'nama_penerbangan'        => 'required',
-            'harga'                   => 'required',
-            // 'tanggal_keberangkatan'   => 'required',
-            // 'jam_keberangkatan'       => 'required',
+            'nama_destinasi'     => 'required',
+            'nama_penerbangan'   => 'required',
+            'harga'              => 'required',
         ]);
 
         //check if validation fails
@@ -118,10 +106,10 @@ class DestinasiController extends Controller
         $destinasi = Destinasi::find($id);
 
         //check if image is not empty
-        if ($request->hasFile('gambar')) {
+        if ($request->hasFile('image')) {
 
             //upload image
-            $image = $request->file('gambar');
+            $image = $request->file('image');
             $image->storeAs('public/posts', $image->hashName());
 
             //delete old image
@@ -129,34 +117,25 @@ class DestinasiController extends Controller
 
             //update post with new image
             $destinasi->update([
-                'gambar'                  => $image->hashName(),
-                'nama_destinasi'          => $request->nama_destinasi,
-                'nama_penerbangan'        => $request->nama_penerbangan,
-                'harga'                   => $request->harga,
-                'tanggal_keberangkatan'   => $request->content,
-                'jam_keberangkatan'       => $request->content,
+                'image'              => $image->hashName(),
+                'nama_destinasi'     => $request->nama_destinasi,
+                'nama_penerbangan'   => $request->nama_penerbangan,
+                'harga'              => $request->harga,
             ]);
         } else {
 
             //update post without image
             $destinasi->update([
-                'nama_destinasi'          => $request->nama_destinasi,
-                'nama_penerbangan'        => $request->nama_penerbangan,
-                'harga'                   => $request->harga,
-                'tanggal_keberangkatan'   => $request->content,
+                'nama_destinasi'     => $request->nama_destinasi,
+                'nama_penerbangan'   => $request->nama_penerbangan,
+                'harga'              => $request->harga,
             ]);
         }
 
         //return response
-        return new DestinasiResource(true, 'Data destinasi Berhasil Diubah!', $destinasi);
+        return new DestinasiResource(true, 'Data Post Berhasil Diubah!', $destinasi);
     }
 
-    /**
-     * destroy
-     *
-     * @param  mixed $id
-     * @return void
-     */
     public function destroy($id)
     {
 
@@ -170,8 +149,6 @@ class DestinasiController extends Controller
         $destinasi->delete();
 
         //return response
-        return new DestinasiResource(true, 'Data destinasi Berhasil Dihapus!', null);
+        return new DestinasiResource(true, 'Data Destinasi Berhasil Dihapus!', null);
     }
-
 }
-
