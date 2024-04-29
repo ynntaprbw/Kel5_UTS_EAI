@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .review-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .review-card {
+            width: 320px;
+            background-color: #f9f9f9; /* Ubah warna latar belakang */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            text-align: left;
+            height: auto;
+            overflow-y: auto;
+            transition: transform 0.3s; /* Tambahkan efek transisi */
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px); /* Tambahkan efek hovering */
+        }
+
+        .review-card h3 {
+            color: #333;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .review-card p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            word-wrap: break-word;
+        }
+
+        .review-card img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            color: #ffc107;
+        }
+
+        .average-rating {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .average-rating .stars {
+            font-size: 30px;
+            color: #ffc107;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Review</h1>
+
+    <!-- Daftar review yang ada -->
+    <div class="review-container">
+        {% for review in reviews_data %}
+        <div class="review-card">
+            <h3>{{ review.title_review }}</h3> <!-- Judul Review -->
+            <p><strong>Tour:</strong> {{ review.get('tour', 'N/A') }}</p>
+            <p><strong>Rating:</strong> 
+                {% if review.rating is defined %}
+                    <span class="stars">
+                        {% set rating = review.rating|int %} <!-- Convert review.rating to an integer -->
+                        {% for i in range(1, 6) %}
+                            {% if i <= rating %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                    {% if rating == 1 %}
+                        Terrible
+                    {% elif rating == 2 %}
+                        Poor
+                    {% elif rating == 3 %}
+                        Average
+                    {% elif rating == 4 %}
+                        Very Good
+                    {% else %}
+                        Excellent
+                    {% endif %}
+                {% else %}
+                    N/A
+                {% endif %}
+            </p>
+            <p><strong>Date:</strong> {{ review.get('date_go', 'N/A') }}</p>
+            <p><strong>Go With:</strong> {{ review.get('go_with', 'N/A') }}</p>
+            <p><strong>Review:</strong> {{ review.get('review_text', 'N/A') }}</p>
+            {% if review.get('image') %}
+                <img src="/image/{{ review['_id'] }}" alt="Review Photo">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="average-rating">
+        <h2>Average Rating</h2>
+        <div class="stars">
+            <!-- Tampilkan bintang untuk rating rata-rata -->
+            {% set total_ratings = 0 %}
+            {% for review in reviews_data %}
+                {% if review.rating is defined %}
+                    {% set total_ratings = total_ratings + review.rating|int %}
+                {% endif %}
+            {% endfor %}
+            {% set total_reviews = reviews_data|length %}
+            {% if total_reviews > 0 %}
+                {% set average_rating = total_ratings / total_reviews %}
+                {% for i in range(1, 6) %}
+                    {% if i <= average_rating %}
+                        ★
+                    {% else %}
+                        ☆
+                    {% endif %}
+                {% endfor %}
+                <!-- Tampilkan rating dalam bentuk teks -->
+                <span>{{ "%.1f" | format(average_rating) }}/5</span>
+            {% else %}
+                <!-- Tampilkan pesan jika belum ada ulasan -->
+                <span>No reviews yet</span>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
