@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Traveler &mdash; Free Website Template, Free HTML5 Template by FreeHTML5.co</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
+		<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+		<meta name="author" content="FreeHTML5.co" />
+	
+		  <!-- Facebook and Twitter integration -->
+		<meta property="og:title" content=""/>
+		<meta property="og:image" content=""/>
+		<meta property="og:url" content=""/>
+		<meta property="og:site_name" content=""/>
+		<meta property="og:description" content=""/>
+		<meta name="twitter:title" content="" />
+		<meta name="twitter:image" content="" />
+		<meta name="twitter:url" content="" />
+		<meta name="twitter:card" content="" />
+	
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+		
+		<!-- Animate.css -->
+		<link rel="stylesheet" href="/static/css/animate.css">
+		<!-- Icomoon Icon Fonts -->
+		<link rel="stylesheet" href="/static/css/icomoon.css">
+		<!-- Themify Icons -->
+		<link rel="stylesheet" href="/static/css/themify-icons.css">
+		<!-- Bootstrap  -->
+		<link rel="stylesheet" href="/static/css/bootstrap.css">
+	
+		<!-- Magnific Popup -->
+		<link rel="stylesheet" href="/static/css/magnific-popup.css">
+	
+		<!-- Magnific Popup -->
+		<link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
+	
+		<!-- Owl Carousel  -->
+		<link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+	
+		<!-- Theme style  -->
+		<link rel="stylesheet" href="/static/css/style.css">
+	
+		<!-- Modernizr JS -->
+		<script src="/static/js/modernizr-2.6.2.min.js"></script>
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
+		<script src="/static/js/respond.min.js"></script>
+		<![endif]-->
+	
+		</head>
+		<body>
+		
+			<div class="gtco-loader"></div>
+			
+			<div id="page">
+		
+			
+			<!-- <div class="page-inner"> -->
+			<nav class="gtco-nav" role="navigation">
+				<div class="gtco-container">
+					
+					<div class="row">
+						<div class="col-sm-4 col-xs-12">
+							<div id="gtco-logo"><a href="index.html">Traveler <em>.</em></a></div>
+						</div>
+						<div class="col-xs-8 text-right menu-1">
+							<ul>
+							
+								<li><a href="{{ url_for('FungsiDestinasi') }}"> add review</a></li>
+								<li><a href="contact.html">Contact</a></li>
+							</ul>	
+						</div>
+					</div>
+					
+				</div>
+			</nav>
+			
+			<header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(/static/images/img_bg_2.jpg)">
+				<div class="overlay"></div>
+				<div class="gtco-container">
+					<div class="row">
+						<div class="col-md-12 col-md-offset-0 text-left">
+							<div class="row row-mt-15em">
+								<div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+									<h1>Planing Trip To Anywhere in The World?</h1>
+								</div>
+								<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+									<div class="form-wrap">
+										<div class="tab">
+											<div class="tab-content">
+												<div class="tab-content-inner active" data-content="signup">
+													<h3>Book Your Trip</h3>
+														<form method="post" action="/">
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="fullname">Your Name</label>
+																<input type="text" id="fullname" class="form-control">
+															</div>
+														</div>
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="email" name="">Your Email</label>
+																<input type="email" id="email" class="form-control">
+															</div>
+														</div>											
+														
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="ticket_quantity">Ticket Quantity</label>
+																<input type="number" id="ticket_quantity" class="form-control">
+															</div>
+														</div>
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="total_bill">Total Bill</label>
+																<input type="number" id="total_bill" class="form-control">
+															</div>
+														</div>
+														
+															<div class="row form-group">
+																<div class="col-md-12">
+																	<input type="submit" class="btn btn-primary btn-block" value="Submit">
+																</div>
+															</div>
+													
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			
+	<div class="gtco-section">
+    <div class="gtco-container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                <h2>Reviews</h2>
+                <p>Check out what our customers say about their experiences!</p>
+            </div>
+        </div>
+		<div>
+			<h1>Data Destinasi</h1>
+    		{{ destinasi_data }}
+
+    		<h1>Daftar Review</h1>
+    		{{ reviews_html|safe }}
+		</div>
+        <!-- <div class="row">
+            <div class="review-container">
+                {% for review in reviews_data %}
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="review-card">
+                        <h3>{{ review.title_review }}</h3> 
+                        <p><strong>Tour:</strong> {{ review.tour }}</p>
+                        <p><strong>Rating:</strong> 
+                            <span class="stars">
+                                {% set rating = review.rating|int %}
+                                {% for i in range(1, 6) %}
+                                    {% if i <= rating %}
+                                        ★
+                                    {% else %}
+                                        ☆
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                            {% if rating == 1 %}
+                                Terrible
+                            {% elif rating == 2 %}
+                                Poor
+                            {% elif rating == 3 %}
+                                Average
+                            {% elif rating == 4 %}
+                                Very Good
+                            {% else %}
+                                Excellent
+                            {% endif %}
+                        </p>
+                        <p><strong>Date:</strong> {{ review.date_go }}</p>
+                        <p><strong>Go With:</strong> {{ review.go_with }}</p>
+                        <p><strong>Review:</strong> {{ review.review }}</p>
+                        
+                        {% if review.photo %}
+                            <img src="{{ url_for('show_image', entry_id=str(review._id)) }}" alt="Review Photo">
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>-->
+        </div>
+    </div>
+</div>
+
+	<div class="gtco-cover gtco-cover-sm" style="background-image: url(images/img_bg_1.jpg)"  data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="gtco-container text-center">
+			<div class="display-t">
+				<div class="display-tc">
+					<h1>We have high quality services that you will surely love!</h1>
+				</div>	
+			</div>
+		</div>
+	</div>
+
+	<footer id="gtco-footer" role="contentinfo">
+		<div class="gtco-container">
+			<div class="row row-p	b-md">
+
+				<div class="col-md-4">
+					<div class="gtco-widget">
+						<h3>About Us</h3>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore eos molestias quod sint ipsum possimus temporibus officia iste perspiciatis consectetur in fugiat repudiandae cum. Totam cupiditate nostrum ut neque ab?</p>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-md-push-1">
+					<div class="gtco-widget">
+						<h3>Get In Touch</h3>
+						<ul class="gtco-quick-contact">
+							<li><a href="#"><i class="icon-phone"></i> +1 234 567 890</a></li>
+							<li><a href="#"><i class="icon-mail2"></i> info@freehtml5.co</a></li>
+							<li><a href="#"><i class="icon-chat"></i> Live Chat</a></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row copyright">
+				<div class="col-md-12">
+					<p class="pull-right">
+						<ul class="gtco-social-icons pull-right">
+							<li><a href="#"><i class="icon-twitter"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	<!-- </div> -->
+
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+	<script>
+		document.getElementById('bookTripForm').addEventListener('submit', function(event) {
+			event.preventDefault();
+			const formData = {
+				fullname: document.getElementById('fullname').value,
+				activities: document.getElementById('activities').value,
+				destination: document.getElementById('destination').value,
+				date: document.getElementById('date-start').value
+			};
+			fetch('/api/tiket', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
+			.then(response => response.json())
+			.then(data => {
+				alert(data.message);
+				document.getElementById('bookTripForm').reset();
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+		});
+	</script>
+	<!-- jQuery -->
+	<script src="static/js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="static/js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="static/js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="static/js/jquery.waypoints.min.js"></script>
+	<!-- Carousel -->
+	<script src="static/js/owl.carousel.min.js"></script>
+	<!-- countTo -->
+	<script src="static/js/jquery.countTo.js"></script>
+
+	<!-- Stellar Parallax -->
+	<script src="static/js/jquery.stellar.min.js"></script>
+
+	<!-- Magnific Popup -->
+	<script src="static/js/jquery.magnific-popup.min.js"></script>
+	<script src="static/js/magnific-popup-options.js"></script>
+	
+	<!-- Datepicker -->
+	<script src="static/js/bootstrap-datepicker.min.js"></script>
+	
+
+	<!-- Main -->
+	<script src="static/js/main.js"></script>
+
+	</body>
+</html>
+
