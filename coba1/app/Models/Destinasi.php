@@ -5,19 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Tiket extends Model
+class Destinasi extends Model
 {
-    protected $table = 'tiket';
+    use HasFactory;
+    protected $table = 'destinasi';
     protected $primaryKey = 'id';
+    /**
+     * fillable
+     *
+     * @var array
+     */
     protected $fillable = [
-        'id_tiket', 'id_destinasi', 'nama_pengguna' ,'email_pengguna', 'jumlah_tiket','total_tagihan'
+        'image',
+        'nama_destinasi',
+        'tour',
+        'harga'
     ];
-
-    public function destinasi() : BelongsTo {
-        return $this->belongsTo(Destinasi::class);
-    }
 
     /**
      * image

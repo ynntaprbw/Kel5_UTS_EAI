@@ -7,8 +7,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-//Destinasi
+//posts
 Route::apiResource('/destinasi', App\Http\Controllers\Api\DestinasiController::class);
 
-//Tiket
 Route::apiResource('/tiket', App\Http\Controllers\Api\TiketController::class);
