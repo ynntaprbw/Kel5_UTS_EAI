@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .review-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .review-card {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            width: 300px;
+            margin: 10px;
+            display: flex; /* Added */
+            flex-direction: column; /* Added */
+        }
+
+        .review-card .image-container {
+            width: 100%;
+            padding-top: 100%; /* Maintain 1:1 aspect ratio */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .review-card img:hover {
+            transform: scale(1.1);
+        }
+
+        .review-card-content {
+            padding: 20px;
+        }
+
+        .review-card h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .review-card p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .stars {
+            color: #ffc107;
+        }
+
+        .average-rating {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .average-rating .stars {
+            font-size: 30px;
+            color: #ffc107;
+        }
+
+        /* Modal Style */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .close {
+            color: #ccc;
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Travel Advisor</h1>
+    <!-- Daftar review yang ada -->
+<div class="review-container">
+    {% for review in reviews_data %}
+    <div class="review-card">
+        <div class="image-container">
+            {% if review.get('image') %}
+                <img src="/image/{{ review['_id'] }}" alt="Review Photo" onclick="openModal(this)">
+            {% else %}
+                <div style="height: 100%; background-color: #eee; display: flex; align-items: center; justify-content: center;">
+                    No Image
+                </div>
+            {% endif %}
+        </div>
+        <div class="review-card-content">
+            <h3>{{ review.title_review }}</h3>
+            <p><strong>Tour     :</strong> {{ review.tour }}</p>
+            <p><strong>Rating   :</strong>
+                {% if review.rating is defined %}
+                    <span class="stars">
+                        {% set rating = review.rating|int %}
+                        {% for i in range(1, 6) %}
+                            {% if i <= rating %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                    {% if rating == 1 %}
+                        Terrible
+                    {% elif rating == 2 %}
+                        Poor
+                    {% elif rating == 3 %}
+                        Average
+                    {% elif rating == 4 %}
+                        Very Good
+                    {% else %}
+                        Excellent
+                    {% endif %}
+                {% else %}
+                    N/A
+                {% endif %}
+            </p>         
+            <p><strong>Name     :</strong> {{ review.nama }}</p>
+            <p><strong>Date     :</strong> {{ review.date_go }}</p>
+            <p><strong>Go With  :</strong> {{ review.go_with }}</p>
+            <p><strong>Review   :</strong> {{ review.review }}</p>
+            <!-- Tombol "Hapus" dengan latar belakang coklat -->
+            <div style="padding: 10px; border-radius: 5px; text-align: center;">
+                <form action="/delete_review/{{ review._id }}" method="post">
+                    <button type="submit" class="btn btn-danger" style="color: #8B4513;">Hapus Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script>
+        function openModal(img) {
+            var modal = document.getElementById("myModal");
+            var modalImg = document.getElementById("img01");
+            modal.style.display = "block";
+            modalImg.src = img.src;
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
