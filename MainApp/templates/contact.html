@@ -56,7 +56,7 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-4">Write Your Travelling Experience Here!</h1>
-        <form action="/add_review" method="POST" enctype="multipart/form-data">
+        <form action="/submit_review" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="tour" class="form-label"><strong>Which tour did you do?</strong></label>
                 <select id="tour" name="tour" class="form-select">
@@ -84,7 +84,7 @@
                     <input type="radio" id="star5" name="rating" value="1">
                     <label for="star5"></label>
                 </div>
-</div>
+                </div>
             <div class="mb-3">
                 <label for="date_go" class="form-label"><strong>Date of the tour:</strong></label>
                 <input type="date" id="date_go" name="date_go" class="form-control">

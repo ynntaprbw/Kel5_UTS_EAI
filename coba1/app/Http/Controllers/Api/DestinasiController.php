@@ -22,7 +22,7 @@ class DestinasiController extends Controller
         $destinasi = Destinasi::latest()->paginate(5);
 
         //return collection of posts as a resource
-        return new DestinasiResource(true, 'List Data Posts', $destinasi);
+        return $destinasi;
     }
 
     /**

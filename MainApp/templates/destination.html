@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Traveler &mdash; Free Website Template, Free HTML5 Template by FreeHTML5.co</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
+		<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+		<meta name="author" content="FreeHTML5.co" />
+	
+		  <!-- Facebook and Twitter integration -->
+		<meta property="og:title" content=""/>
+		<meta property="og:image" content=""/>
+		<meta property="og:url" content=""/>
+		<meta property="og:site_name" content=""/>
+		<meta property="og:description" content=""/>
+		<meta name="twitter:title" content="" />
+		<meta name="twitter:image" content="" />
+		<meta name="twitter:url" content="" />
+		<meta name="twitter:card" content="" />
+	
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+		
+		<!-- Animate.css -->
+		<link rel="stylesheet" href="/static/css/animate.css">
+		<!-- Icomoon Icon Fonts -->
+		<link rel="stylesheet" href="/static/css/icomoon.css">
+		<!-- Themify Icons -->
+		<link rel="stylesheet" href="/static/css/themify-icons.css">
+		<!-- Bootstrap  -->
+		<link rel="stylesheet" href="/static/css/bootstrap.css">
+	
+		<!-- Magnific Popup -->
+		<link rel="stylesheet" href="/static/css/magnific-popup.css">
+	
+		<!-- Magnific Popup -->
+		<link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css">
+	
+		<!-- Owl Carousel  -->
+		<link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+		<link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+	
+		<!-- Theme style  -->
+		<link rel="stylesheet" href="/static/css/style.css">
+	
+		<!-- Modernizr JS -->
+		<script src="/static/js/modernizr-2.6.2.min.js"></script>
+		<!-- FOR IE9 below -->
+		<!--[if lt IE 9]>
+		<script src="/static/js/respond.min.js"></script>
+		<![endif]-->
+	
+		</head>
+		<body>
+		
+			
+		
+			
+			<!-- <div class="page-inner"> -->
+			<nav class="gtco-nav" role="navigation">
+				<div class="gtco-container">
+					
+					<div class="row">
+						<div class="col-sm-4 col-xs-12">
+							<div id="gtco-logo"><a href="index.html">Traveler <em>.</em></a></div>
+						</div>
+						<div class="col-xs-8 text-right menu-1">
+							<ul>
+							
+								<li></a></li>
+								
+							</ul>	
+						</div>
+					</div>
+					
+				</div>
+			</nav>
+            <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner" style="background-image: url(/static/images/img_bg_3.jpg)">
+				<div class="overlay"></div>
+				<div class="gtco-container">
+					<div class="row">
+						<div class="col-md-12 col-md-offset-0 text-left">
+							<div class="row row-mt-15em">
+								<div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+									<h1>Write Your Travelling Experience Here!</h1>
+								</div>
+								<div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+									<div class="form-wrap">
+										<div class="tab">
+											<div class="tab-content">
+												<div class="tab-content-inner active" data-content="signup">
+													<h3>Review your trip here</h3>
+														<form id="reviewForm" action="/add_review" method="POST" enctype="multipart/form-data">
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="nama">Your Name:</label>
+																<input type="text" id="nama" name="nama" class="form-control">
+															</div>
+														</div>
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="rating" class="form-label"><strong>How would you rate your experience?</strong></label>
+                                                                <div class="stars">
+                                                                    <input type="radio" id="star1" name="rating" value="5">
+                                                                    <label for="star1"></label>
+                                                                    <input type="radio" id="star2" name="rating" value="4">
+                                                                    <label for="star2"></label>
+                                                                    <input type="radio" id="star3" name="rating" value="3">
+                                                                    <label for="star3"></label>
+                                                                    <input type="radio" id="star4" name="rating" value="2">
+                                                                    <label for="star4"></label>
+                                                                    <input type="radio" id="star5" name="rating" value="1">
+                                                                    <label for="star5"></label>
+                                                                </div>
+															</div>
+														</div>	
+
+                                                        <div class="row form-group">
+                                                            <div class="col-md-12">
+                                                                <label for="date-start">Date Travel:</label>
+                                                                <input type="text" id="date-start" class="form-control">
+                                                            </div>
+                                                        </div>
+
+														<div class="row form-group">
+                                                            <div class="col-md-12">
+                                                                <label for="go_with">Who did you go with?</label>
+                                                                <select name="go_with" id="go_with" class="form-control">
+                                                                    <option value="Business">Business</option>
+                                                                    <option value="Couples">Couples</option>
+                                                                    <option value="Family">Family</option>
+                                                                    <option value="Friends">Friends</option>
+                                                                    <option value="Solo">Solo</option>
+                                                                </select>
+                                                            </div>
+                                                        <div class="row form-group">
+															<div class="col-md-12">
+																<label for="review">Write your review:</label>
+																<textarea id="review" rows="4" class="form-control"></textarea>
+															</div>
+														</div>
+                                                        
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="title_review">Title your review:</label>
+																<input type="text" id="title_review" class="form-control">
+															</div>
+														</div>
+														<div class="row form-group">
+															<div class="col-md-12">
+																<label for="image">Upload Image:</label>
+																<input type="file" id="image" accept="image/*" class="form-control">
+															</div>
+														</div>
+														
+															<div class="row form-group">
+																<div class="col-md-12">
+																	<input type="submit" class="btn btn-primary btn-block" value="Submit">
+																</div>
+															</div>
+													
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+				</div>
+                
+			</header>
+            <script>
+                document.getElementById('reviewForm').addEventListener('submit', function(event) {
+                    event.preventDefault(); // Mencegah formulir dikirim secara default
+            
+                    // Mengumpulkan data formulir
+                    const formData = new FormData(this);
+            
+                    // Kirim permintaan fetch dengan data formulir
+                    fetch('/add_review', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message); // Tampilkan pesan balasan
+                        document.getElementById('reviewForm').reset(); // Reset formulir setelah dikirim
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            </script>            
+        
+            </body>
+        </html>
+ 
