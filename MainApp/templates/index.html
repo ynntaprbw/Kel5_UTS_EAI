@@ -70,8 +70,8 @@
 						<div class="col-xs-8 text-right menu-1">
 							<ul>
 							
-								<li><a href="{{ url_for('FungsiDestinasi') }}"> add review</a></li>
-								<li><a href="contact.html">Contact</a></li>
+								<li></a></li>
+								
 							</ul>	
 						</div>
 					</div>
@@ -141,18 +141,84 @@
 			
 	<div class="gtco-section">
     <div class="gtco-container">
+		<div>
+			<style>
+				table {
+					border-collapse: collapse;
+					width: 100%;
+					font-family: Arial, sans-serif;
+					background-color: #f2f2f2;
+				}
+		
+				th, td {
+					border: 1px solid #dddddd;
+					padding: 12px;
+				}
+		
+				th {
+					background-color: #09C6AB;
+					color: white;
+				}
+		
+				/* CSS untuk hover pada baris tabel */
+				tr:hover {
+					background-color: #f5f5f5;
+				}
+		
+				/* CSS untuk gambar dalam tabel */
+				td img {
+					max-width: 100px;
+					height: auto;
+					display: block;
+					margin: 0 auto;
+					border-radius: 5px;
+					box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+				}
+		
+				/* CSS untuk judul halaman */
+				h1 {
+					text-align: center;
+					color: #333333;
+				}
+			</style>
+			<h1>Data Destinasi</h1>
+
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nama Destinasi</th>
+						<th>Tour</th>
+						<th>Harga</th>
+						<th>Created At</th>
+						<th>Updated At</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for destinasi in destinasi_data %}
+					<tr>
+						<td>{{ destinasi.id }}</td>
+						<td>{{ destinasi.nama_destinasi }}</td>
+						<td>{{ destinasi.tour }}</td>
+						<td>{{ destinasi.harga }}</td>
+						<td>{{ destinasi.created_at }}</td>
+						<td>{{ destinasi.updated_at }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-                <h2>Reviews</h2>
+				<form action="{{ url_for('tes') }}" class="col-md-12" >
+					<button type="submit" class="btn btn-primary btn-block">Add Review</button>
+				</form>
                 <p>Check out what our customers say about their experiences!</p>
+				{{ reviews_html|safe }}
             </div>
         </div>
-		<div>
-			<h1>Data Destinasi</h1>
-    		{{ destinasi_data }}
+		
 
-    		<h1>Daftar Review</h1>
-    		{{ reviews_html|safe }}
+
 		</div>
         <!-- <div class="row">
             <div class="review-container">
@@ -199,7 +265,7 @@
     </div>
 </div>
 
-	<div class="gtco-cover gtco-cover-sm" style="background-image: url(images/img_bg_1.jpg)"  data-stellar-background-ratio="0.5">
+	<div class="gtco-cover gtco-cover-sm" style="background-image: url_for('static', filename='images/img_bg_1.jpg')"  data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="gtco-container text-center">
 			<div class="display-t">
@@ -210,43 +276,7 @@
 		</div>
 	</div>
 
-	<footer id="gtco-footer" role="contentinfo">
-		<div class="gtco-container">
-			<div class="row row-p	b-md">
-
-				<div class="col-md-4">
-					<div class="gtco-widget">
-						<h3>About Us</h3>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore eos molestias quod sint ipsum possimus temporibus officia iste perspiciatis consectetur in fugiat repudiandae cum. Totam cupiditate nostrum ut neque ab?</p>
-					</div>
-				</div>
-
-				<div class="col-md-3 col-md-push-1">
-					<div class="gtco-widget">
-						<h3>Get In Touch</h3>
-						<ul class="gtco-quick-contact">
-							<li><a href="#"><i class="icon-phone"></i> +1 234 567 890</a></li>
-							<li><a href="#"><i class="icon-mail2"></i> info@freehtml5.co</a></li>
-							<li><a href="#"><i class="icon-chat"></i> Live Chat</a></li>
-						</ul>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="row copyright">
-				<div class="col-md-12">
-					<p class="pull-right">
-						<ul class="gtco-social-icons pull-right">
-							<li><a href="#"><i class="icon-twitter"></i></a></li>
-						</ul>
-					</p>
-				</div>
-			</div>
-
-		</div>
-	</footer>
-	<!-- </div> -->
+	
 
 	</div>
 
