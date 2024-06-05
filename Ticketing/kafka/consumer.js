@@ -7,8 +7,7 @@ const PaymentProof = require('../models/PaymentProof');
 mongoose.connect('mongodb://localhost:27017/Tubes', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    bufferCommands: false,
-    bufferTimeoutMS: 0,
+
 }).then(() => {
     console.log('Connected to MongoDB');
     runConsumer();

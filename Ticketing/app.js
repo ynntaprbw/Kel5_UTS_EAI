@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bookingRouter = require('./routes/booking');
 const paymentProofRouter = require('./routes/paymentproof');
-const consumer = require('./kafka/consumer'); // Mengimpor consumer dari consumer.js
+const consumer = require('./kafka/consumer'); 
 
 const app = express();
 
@@ -11,7 +11,9 @@ app.use(express.json());
 // DB Connection
 mongoose.connect('mongodb://localhost:27017/Tubes', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
 db.once('open', function () {
   console.log("Connected to MongoDB");
 });

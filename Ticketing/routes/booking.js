@@ -1,14 +1,42 @@
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
+const sendMessage = require('../kafka/producer');
 const validPrices = require('../utils/validPrices');
 const moment = require('moment');
-const sendMessage = require('../kafka/producer');
+const nodemailer = require('nodemailer');
+
+// Nodemailer transporter configuration
+var transport = nodemailer.createTransport({
+    host: "live.smtp.mailtrap.io",
+    port: 587,
+    auth: {
+        user: "api",
+        pass: "3f6b503f74cd8641ac0ffa9b681d72aa"
+    }
+    });
+
+// Function to send email
+const sendEmail = async (subject, text, to) => {
+    const mailOptions = {
+        from: 'mailtrap@demomailtrap.com',
+        to: to,
+        subject: subject,
+        text: text
+    };
+
+    try {
+        await transport.sendMail(mailOptions);
+        console.log('Email sent');
+    } catch (err) {
+        console.error('Error sending email:', err.message);
+    }
+};
 
 // Route for a new booking
 router.post('/', async (req, res) => {
     try {
-        const { nama, email, jml_tiket, no_hp, harga } = req.body;
+        const { nama, email, jml_tiket, tgl_berangkat, no_hp, harga } = req.body;
 
         // Validate the received price
         const hargaValid = validPrices.some(price => price.harga === harga);
@@ -48,6 +76,27 @@ router.post('/', async (req, res) => {
             action: 'create',
             booking
         });
+
+        // Get the latest booking email address
+        const lastBooking = await Booking.findOne().sort({ timestamp: -1 });
+        if (!lastBooking) {
+            return res.status(404).json({ message: 'Booking not found' });
+        }
+
+        // Send confirmation email to the latest booking email address
+        const subject = 'Booking Confirmation';
+        const text = 
+        `Dear ${booking.nama},\n\nIni adalah pengingat bahwa keberangkatan anda ada pada tanggal: ${booking.tgl_berangkat}. Berikut merupakan detail pemesanan anda:\n\n
+        Nama: ${booking.nama}\n
+        Email: ${booking.email}\n
+        Jumlah Tiket: ${booking.jml_tiket}\n
+        Tanggal Keberangkatan: ${booking.tgl_berangkat}\n
+        Nomor HP: ${booking.no_hp}\n
+        Harga: ${booking.harga}\n
+        Total Harga: ${booking.total_harga}\n\n
+        Nb: Anda dapat melakukan perubahan dan pembatalan maksimal H+7 dari tanggal pemesanan.
+        Terimakasih, Semoga Perjalanan anda menyenangkan!\n`;
+        sendEmail(subject, text, booking.email);
 
         res.status(201).json(booking);
     } catch (err) {
@@ -116,6 +165,20 @@ router.put('/', async (req, res) => {
             booking: lastBooking
         });
 
+        // Send confirmation email to the latest booking email address
+        const subject = 'Booking Update Confirmation';
+        const text = 
+        `Dear ${booking.nama},\n\nPerubahan keberangkatan berhasil di update, keberangkatan anda ada pada tanggal: ${booking.tgl_berangkat}. Berikut merupakan detail pemesanan anda:\n\n
+        Nama: ${booking.nama}\n
+        Email: ${booking.email}\n
+        Jumlah Tiket: ${booking.jml_tiket}\n
+        Tanggal Keberangkatan: ${booking.tgl_berangkat}\n
+        Nomor HP: ${booking.no_hp}\n
+        Harga: ${booking.harga}\n
+        Total Harga: ${booking.total_harga}\n\n
+        Nb: Anda dapat melakukan perubahan dan pembatalan maksimal H+7 dari tanggal pemesanan.
+        Terimakasih, Semoga Perjalanan anda menyenangkan!\n`;
+        sendEmail(subject, text, lastBooking.email);
         res.json(lastBooking);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -151,6 +214,20 @@ router.delete('/', async (req, res) => {
             action: 'delete',
             bookingId: lastBooking._id
         });
+
+        // Send confirmation email to the latest booking email address
+        const subject = 'Booking Delete Confirmation';
+        const text = 
+        `Dear ${booking.nama},\n\nKeberangkatan anda ada pada tanggal: ${booking.tgl_berangkat} Berhasil dihapus. Berikut merupakan detail pemesanan anda:\n\n
+        Nama: ${booking.nama}\n
+        Email: ${booking.email}\n
+        Jumlah Tiket: ${booking.jml_tiket}\n
+        Tanggal Keberangkatan: ${booking.tgl_berangkat}\n
+        Nomor HP: ${booking.no_hp}\n
+        Harga: ${booking.harga}\n
+        Total Harga: ${booking.total_harga}\n\n
+        Terimakasih, Semoga anda puas dengan pelayanan kami!\n`;
+        sendEmail(subject, text, lastBooking.email);
 
         res.json({ message: 'Booking deleted' });
     } catch (err) {
