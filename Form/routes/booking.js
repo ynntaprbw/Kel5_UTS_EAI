@@ -16,7 +16,7 @@ var transport = nodemailer.createTransport({
     }
 });
 
-// Function to send email
+// fungsi buat send email testing pakai malitrap.io
 const sendEmail = async (subject, text, to) => {
     const mailOptions = {
         from: 'mailtrap@demomailtrap.com',
@@ -33,7 +33,17 @@ const sendEmail = async (subject, text, to) => {
     }
 };
 
-// Route for a new booking
+router.get('/', async (req, res) => {
+    try {
+        const lastBooking = await Ticket.findOne().sort({ createdAt: +1 });
+        if (!lastBooking) return res.status(404).json({ message: 'Booking not found' });
+        res.json(lastBooking);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
 router.post('/', async (req, res) => {
     try {
         const { nama, email, jml_tiket, tgl_berangkat, no_hp, harga } = req.body;
@@ -97,16 +107,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Route to get the last booking input
-router.get('/', async (req, res) => {
-    try {
-        const lastBooking = await Booking.findOne().sort({ timestamp: -1 });
-        if (!lastBooking) return res.status(404).json({ message: 'Booking not found' });
-        res.json(lastBooking);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
 
 // Route to update the last booking input
 router.put('/', async (req, res) => {
@@ -120,14 +120,14 @@ router.put('/', async (req, res) => {
         }
 
         // Get the last booking
-        const booking = await Booking.findOne().sort({ timestamp: -1 });
+        const booking = await Booking.findOne().sort({ createdAt: -1 });
         if (!booking) {
             return res.status(404).json({ message: 'Booking not found' });
         }
 
-        // Compare the current date with the booking timestamp
+        // Compare the current date with the booking createdAt
         const dateNow = moment();
-        const bookingDate = moment(booking.timestamp);
+        const bookingDate = moment(booking.createdAt);
         const diffInDays = dateNow.diff(bookingDate, 'days');
 
         // Maximum time limit for updating
@@ -183,14 +183,14 @@ router.put('/', async (req, res) => {
 router.delete('/', async (req, res) => {
     try {
         // Get the last booking
-        const lastBooking = await Booking.findOne().sort({ timestamp: -1 });
+        const lastBooking = await Booking.findOne().sort({ createdAt: -1 });
         if (!lastBooking) {
             return res.status(404).json({ message: 'Booking not found' });
         }
 
-        // Compare the current date with the booking timestamp
+        // Compare the current date with the booking createdAt
         const dateNow = moment();
-        const bookingDate = moment(lastBooking.timestamp);
+        const bookingDate = moment(lastBooking.createdAt);
         const diffInDays = dateNow.diff(bookingDate, 'days');
 
         // Maximum time limit for deleting

@@ -170,6 +170,7 @@ function openPopupPembelian(button) {
         document.getElementById('nama').value = data.nama;
         document.getElementById('email').value = data.email;
         document.getElementById('jml_tiket').value = data.jml_tiket;
+        document.getElementById('tgl_berangkat').value = data.tgl_berangkat;
         document.getElementById('no_hp').value = data.no_hp;
         document.getElementById('harga').value = data.harga;
 
@@ -186,6 +187,7 @@ document.getElementById("updatePembelian").addEventListener("submit", function(e
     var nama = document.getElementById("nama").value;
     var email = document.getElementById("email").value;
     var jml_tiket = document.getElementById("jml_tiket").value;
+    var tgl_berangkat = document.getElementById("tgl_berangkat").value;
     var no_hp = document.getElementById("no_hp").value;
     var harga = document.getElementById("harga").value;
 
@@ -194,6 +196,7 @@ document.getElementById("updatePembelian").addEventListener("submit", function(e
         nama: nama,
         email: email,
         jml_tiket: jml_tiket,
+        tgl_berangkat: tgl_berangkat,
         no_hp: no_hp,
         harga: harga
     };

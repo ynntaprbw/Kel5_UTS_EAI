@@ -165,7 +165,6 @@ def buat_pesanan():
     nama = str(request.form['nama'])
     email = str(request.form['email'])
     jml_tiket = int(request.form['jml_tiket'])
-    tgl_berangkat = request.form['tgl_berangkat']
     no_hp = str(request.form['no_hp'])
     harga = int(request.form['harga'])
 
@@ -173,24 +172,19 @@ def buat_pesanan():
         return "Invalid form data", 400
     
     # Debugging: Print the data to ensure it is correct
-    print(f"Data yang dikirim: nama={nama}, email={email}, jml_tiket={jml_tiket}, tgl_berangkat={tgl_berangkat}, no_hp={no_hp}, harga={harga}")
+    print(f"Data yang dikirim: nama={nama}, email={email}, jml_tiket={jml_tiket}, no_hp={no_hp}, harga={harga}")
 
     url = 'http://localhost:5002/api/bookings'
-    headers = {
-                "Authorization": "yesro",
-                "Content-Type": "application/json"
-            }
 
     data = {
         'nama': nama,
         'email': email,
         'jml_tiket': jml_tiket,
-        'tgl_berangkat' : tgl_berangkat,
         'no_hp': no_hp,
         'harga': harga
     }
 
-    response = requests.post(url, json=data, headers=headers)
+    response = requests.post(url, data=data)
     print(f"Response status: {response.status_code}")
     print(f"Response content: {response.json()}")
 
@@ -205,73 +199,64 @@ def buat_pesanan():
         error_message = response.json().get('message', 'Gagal menyimpan data pembelian')
         return error_message, response.status_code
 
-@app.route('/update-booking', methods=['POST', 'PUT'])
-def update_booking():
-    if request.method == 'POST':
-        # Mendapatkan data dari form
-        nama = request.form.get('nama')
-        email = request.form.get('email')
-        jml_tiket = request.form.get('jml_tiket')
-        tgl_berangkat = request.form.get('tgl_berangkat')
-        no_hp = request.form.get('no_hp')
-        harga = request.form.get('harga')
+@app.route('/update-booking', methods=['PUT'])
+def update_beli():
+    # Mendapatkan data dari form
+    nama = request.form.get('nama')
+    email = request.form.get('email')
+    jml_tiket = request.form.get('jml_tiket')
+    no_hp = request.form.get('no_hp')
+    harga = request.form.get('harga')
 
-        # Memeriksa apakah semua data diterima
-        if not (nama and email and jml_tiket and no_hp and harga and tgl_berangkat):
-            return "Invalid form data", 400
+    # Memeriksa apakah semua data diterima
+    if not (nama and email and jml_tiket and no_hp and harga) :
+        return "Invalid form data", 400
 
-        # Membuat dictionary data untuk dikirim ke server
-        data = {
-            'nama': nama,
-            'email': email,
-            'jml_tiket': jml_tiket,
-            'tgl_berangkat': tgl_berangkat,
-            'no_hp': no_hp,
-            'harga': harga
-        }
+    # Membuat dictionary data untuk dikirim ke server
+    data = {
+        'nama': nama,
+        'email': email,
+        'jml_tiket': jml_tiket,
+        'no_hp': no_hp,
+        'harga': harga,
+    }
 
-        # URL endpoint untuk mengupdate ulasan
-        url = 'http://localhost:5002/api/bookings'
+    # URL endpoint untuk mengupdate ulasan berdasarkan ID
+    url = 'http://localhost:5002/api/bookings'
 
-        try:
-            # Mengirim permintaan PUT ke server dengan data booking terbaru
-            response = requests.put(url, json=data)
-            response.raise_for_status()  # Raises an HTTPError if the request returned an unsuccessful status code
+    try:
+        # Mengirim permintaan PUT ke server dengan data ulasan
+        response = requests.put(url, data=data)
+        response.raise_for_status()  # Raises an HTTPError if the request returned an unsuccessful status code
 
-            if response.status_code == 200:
-                # Jika berhasil, ambil data terbaru dan tampilkan di halaman utama
-                pembelian_get = get_pembelian()
-                ulasan_get = get_ulasan()
-                gambar_pembelian = get_gambar()
-                flight_get = get_flight()
+        if response.status_code == 200:
+            # Jika berhasil, ambil data terbaru dan tampilkan di halaman utama
+            pembelian_get = get_pembelian()
+            ulasan_get = get_ulasan()
+            gambar_pembelian = get_gambar()
+            flight_get = get_flight()
 
-                return render_template('main.html', ulasan=ulasan_get, beli=pembelian_get, gambar_pembelian=gambar_pembelian, flight=flight_get)
-            else:
-                # Jika ada kesalahan, tangani kesalahan dari respons server
-                error_message = response.json().get('message', 'Gagal memperbarui data booking')
-                print(f"Error: {error_message}")
-                return error_message, response.status_code
+            return render_template('main.html', ulasan=ulasan_get, beli=pembelian_get, gambar_pembelian=gambar_pembelian, flight=flight_get)
+        else:
+            # Jika ada kesalahan, tangani kesalahan dari respons server
+            error_message = response.json().get('message', 'Gagal memperbarui data ulasan')
+            print(f"Error: {error_message}")
+            return error_message, response.status_code
 
-        except requests.exceptions.RequestException as err:
-            # Tangani kesalahan koneksi atau permintaan
-            print(f"An error occurred: {err}")
-            return "An error occurred", 500
-
-    else:
-        return "Method Not Allowed", 405
+    except requests.exceptions.RequestException as err:
+        # Tangani kesalahan koneksi atau permintaan
+        print(f"An error occurred: {err}")
+        return "An error occurred", 500
+    
 
 @app.route('/delete-pembelian', methods=['DELETE'])
 def delete_beli():
     # URL endpoint untuk menghapus ulasan berdasarkan ID
     url = f'http://127.0.0.1:5002/api/bookings'
-    headers = {
-                "Authorization": "yesro",
-                "Content-Type": "application/json"
-            }
 
     try:
         # Mengirim permintaan DELETE ke server
-        response = requests.delete(url, headers=headers)
+        response = requests.delete(url)
         response.raise_for_status()  # Raises an HTTPError if the request returned an unsuccessful status code
 
         if response.status_code == 200:
@@ -298,12 +283,8 @@ def delete_beli():
 @app.route('/review/<int:id>', methods=['GET'])
 def get_review_by_id(id):
     url = "http://127.0.0.1:5001/review/{}".format(id)
-    headers = {
-                "Authorization": "yesro",
-                "Content-Type": "application/json"
-            }
 
-    response = requests.get(url, headers=headers)
+    response = requests.get(url)
     if response.status_code == 200:
             pembelian_get = get_pembelian()
             ulasan_get = get_ulasan()
@@ -351,10 +332,6 @@ def buat_ulasan():
     }
 
     url = 'http://127.0.0.1:5001/add_review'
-    # headers = {
-    #             "Authorization": "yesro",
-    #             "Content-Type": "application/json"
-    #         }
 
     try:
         response = requests.post(url, data=data)
@@ -404,14 +381,10 @@ def update_ulasan(id):
 
     # URL endpoint untuk mengupdate ulasan berdasarkan ID
     url = f'http://127.0.0.1:5001/update_review/{id}'
-    # headers = {
-    #             "Authorization": "yesro",
-    #             "Content-Type": "application/json"
-    #         }
 
     try:
         # Mengirim permintaan PUT ke server dengan data ulasan
-        response = requests.put(url, json=data)
+        response = requests.put(url, data=data)
         response.raise_for_status()  # Raises an HTTPError if the request returned an unsuccessful status code
 
         if response.status_code == 200:
@@ -437,10 +410,6 @@ def update_ulasan(id):
 def delete_ulasan(id):
     # URL endpoint untuk menghapus ulasan berdasarkan ID
     url = f'http://127.0.0.1:5001/delete_review/{id}'
-    # headers = {
-    #             "Authorization": "yesro",
-    #             "Content-Type": "application/json"
-    #         }
 
     try:
         # Mengirim permintaan DELETE ke server

@@ -27,7 +27,6 @@ router.post('/', upload.single('file'), async (req, res) => {
 
         const newPaymentProof = new PaymentProof({
             bookingId: bookingId,
-            amount: amount,
             paymentImage: {
                 data: req.file.buffer,
                 contentType: req.file.mimetype

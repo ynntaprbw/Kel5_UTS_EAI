@@ -101,7 +101,7 @@ nav.navbar form input {
 header {
   position: relative;
   color: #fff;
-  font-family: "Roboto", sans-serif;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 header .container {

@@ -5,7 +5,6 @@ const paymentProofSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ticket'
     },
-    amount: Number,
     status: {
         type: String,
         default: 'Pending'

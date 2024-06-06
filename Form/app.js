@@ -29,7 +29,7 @@ app.use((err, req, res, next) => {
 });
 
 // Server
-const port = 5001;
+const port = 5002;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
