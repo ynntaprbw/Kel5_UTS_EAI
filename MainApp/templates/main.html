@@ -237,7 +237,7 @@
                                 <input type="text" placeholder="Name" name="nama" required>
                                 <input type="email" placeholder="Email" name="email" required>
                                 <input type="text" placeholder="Number of Tickets" name="jml_tiket" required>
-                                <input type="date" id="tgl_berangkat" name="tgl_berangkat" class="form-control" value="{{beli.tgl_berangkat}}" required>
+                                <input type="date" name="tgl_berangkat" required>
                                 <input type="text" placeholder="Phone" name="no_hp" required>
                                 <select name="harga" class="custom-select" required>
                                     <option value="" disabled selected>Pilih Harga</option>
@@ -291,10 +291,6 @@
                                                         <div class="mt-4">
                                                             <h5 class="font-size-15 mb-1">Tanggal Invoice:</h5>
                                                             <p id="formatted-date">{{ beli.createdAt }}</p>
-                                                        </div>
-                                                        <div class="mt-4">
-                                                            <h5 class="font-size-15 mb-1">Tanggal Berangkat:</h5>
-                                                            <p id="formatted-date">{{ beli.tgl_berangkat }}</p>
                                                         </div>
                                                     </div>
                                 
@@ -594,7 +590,6 @@
                 <input id="nama" type="text" placeholder="Name" name="nama" value="{{beli.nama}}" required>
                 <input id="email" type="email" placeholder="Email" name="email" value="{{beli.email}}" required>
                 <input id="jml_tiket" type="text" placeholder="Number of Tickets" name="jml_tiket" value="{{beli.jml_tiket}}" required>
-                <input id="tgl_berangkat" type="date" placeholder="Departure Date" name="tgl_berangkat" value="{{beli.tgl_berangkat}}" required>
                 <input id="no_hp" type="text" placeholder="Phone" name="no_hp" value="{{beli.no_hp}}" required>
                 <select id="harga" name="harga" class="custom-select" value="{{beli.harga}}" required>
                     <option value="" disabled selected>Pilih Harga</option>
@@ -613,14 +608,6 @@
         <a href="https://wa.me/6281338946900?text=Halo%20Admin%20Saya%20Mau%20Tanya%20Lebih%20Lanjut%20Paket%20Salatiga" class="float" target="_blank">
             <i class="fa fa-whatsapp my-float"></i>
         </a>
-
-        <div>
-            {{ beli }}
-        </div>
-
-        <div>
-            {{ ulasan }}
-        </div>
 
         <!-- GET TRY -->
         <!-- <div>

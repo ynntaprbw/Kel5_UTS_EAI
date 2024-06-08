@@ -1,0 +1,219 @@
+.ulasan-fitur{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: poppins;
+}
+
+a{
+    text-decoration: none;
+}
+
+#ulasan{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.ulasan-heading{
+    letter-spacing: 1px;
+    margin: 5px 0px;
+    padding: 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ulasan-heading h1{
+    font-size: 2.2rem;
+    font-weight: 500;
+    background-color: #202020;
+    color: #ffffff;
+    padding: 5px 5px;
+}
+
+.ulasan-heading span {
+    font-size: 1.3rem;
+    color: #252525;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.ulasan-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.ulasan-box{
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.ulasan-form {
+    margin-top: 50px;
+}
+.spacer {
+    height: 50px; /* Menentukan tinggi spacer */
+}
+
+.propil-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.propil-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.propil{
+    display: flex;
+    align-items: center;
+}
+
+.nama-user{
+    display: flex;
+    flex-direction: column;
+}
+
+.nama-user strong{
+    color: #3d3d3d;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.nama-user span{
+    color: #979797;
+    font-size: 0.8rem;
+}
+
+.ripyu {
+    color: #f9d716;
+    margin-bottom: 5px; /* Menambahkan jarak antara bintang dan tour */
+}
+
+.box-atas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.komen p{
+    font-size: 0.9rem;
+    color: #4b4b4b;
+}
+
+.ulasan-box:hover{
+    transform: translateY(-10px);
+    transition: all ease;
+}
+
+::selection{
+    color: #ffffff;
+    background-color: #252525;
+}
+
+.tour {
+    font-size: 0.8rem; /* Ukuran font tour */
+    color: #979797; /* Warna teks tour */
+}
+
+.rating-tour {
+    display: flex;
+    flex-direction: column; /* Menyusun item secara vertikal */
+    align-items: flex-start; /* Menyusun item ke kiri */
+}
+
+.pesan-sekarang {
+    background-color: #ffffff;
+    display: block;
+    border: 1px solid #ffffff;
+    border-radius: 50px;
+    padding: 0;
+    margin: 30px auto;
+    transition: all 0.5s ease;
+}
+  
+.pesan-sekarang a {
+padding: 10px 40px;
+display: block;
+color: #7e7e7e;
+text-decoration: none;
+}
+
+.pesan-sekarang:hover {
+background-color: #bd8cbf;
+border: 1px solid #ffffff;
+}
+
+.pesan-sekarang:hover a {
+color: #ffffff;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.button-container2 {
+    display: flex;
+    justify-content: space-between; /* Mengatur jarak antara tombol */
+    align-items: center; /* Mengatur posisi vertikal tombol */
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #ff1a1a;
+}
+
+.update-btn {
+    background-color: #515151;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.update-btn:hover {
+    background-color: #515151;
+}
+
+/* Tombol untuk menutup pop up */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
