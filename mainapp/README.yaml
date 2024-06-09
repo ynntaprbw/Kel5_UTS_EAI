@@ -1,0 +1,217 @@
+openapi: 3.0.0
+info:
+  title: ALAMY TOUR BOOKING API
+  version: 1.0.0
+  description: API untuk Manage Pembelian Form
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/alfiahmad/Kelompok05/1.0.0
+  - url: http://localhost:5002
+paths:
+  /api/bookings:
+    post:
+      summary: Membuat Pesanan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                email:
+                  type: string
+                jml_tiket:
+                  type: integer
+                tgl_berangkat:
+                  type: string
+                  format: date
+                no_hp:
+                  type: string
+                harga:
+                  type: integer
+      responses:
+        '201':
+          description: Booking Berhasil Dibuat
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  nama:
+                    type: string
+                  email:
+                    type: string
+                  jml_tiket:
+                    type: integer
+                  tgl_berangkat:
+                    type: string
+                    format: date
+                  no_hp:
+                    type: string
+                  harga:
+                    type: integer
+                  total_harga:
+                    type: integer
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Dapatkan Bookingan Terbaru
+      responses:
+        '200':
+          description: Bookingan Terbaru Berhasil Diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  nama:
+                    type: string
+                  email:
+                    type: string
+                  jml_tiket:
+                    type: integer
+                  tgl_berangkat:
+                    type: string
+                    format: date
+                  no_hp:
+                    type: string
+                  harga:
+                    type: integer
+                  total_harga:
+                    type: integer
+        '404':
+          description: Booking Tidak Ditemukan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      summary: Update Booking Terbaru
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama:
+                  type: string
+                email:
+                  type: string
+                jml_tiket:
+                  type: integer
+                tgl_berangkat:
+                  type: string
+                  format: date
+                no_hp:
+                  type: string
+                harga:
+                  type: integer
+      responses:
+        '200':
+          description: Booking Berhasil Di Update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  nama:
+                    type: string
+                  email:
+                    type: string
+                  jml_tiket:
+                    type: integer
+                  tgl_berangkat:
+                    type: string
+                    format: date
+                  no_hp:
+                    type: string
+                  harga:
+                    type: integer
+                  total_harga:
+                    type: integer
+        '400':
+          description: Invalid Input/Batas Update Telah Lewat
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Booking Tidak Ditemukan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    delete:
+      summary: Delete Booking Terbaru
+      responses:
+        '200':
+          description: Booking Berhasil Dihapus
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Masa Delete Sudah Lewat
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Booking Tidak Ditemukan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string

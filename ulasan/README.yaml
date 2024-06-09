@@ -1,0 +1,154 @@
+---
+openapi: 3.0.0
+info:
+  title: ALAMY TOUR API
+  description: API for managing reviews
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/alfiahmad/Kelompok05/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:5001
+paths:
+  /reviews:
+    get:
+      summary: GET Semua Ulasan
+      responses:
+        "200":
+          description: Dapat Semua Ulasan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
+    post:
+      summary: Membuat Review Baru
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reviews_body'
+        required: true
+      responses:
+        "201":
+          description: Review Berhasil Dibuat
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reviews_body'
+  /reviews/{review_id}:
+    get:
+      summary: Dapat Review Berdasarkan ID
+      parameters:
+      - name: review_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Review dengan ID Berhasil di GET
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reviews_body'
+    put:
+      summary: Update Review
+      parameters:
+      - name: review_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reviews_review_id_body'
+        required: true
+      responses:
+        "200":
+          description: Review Berhasil Di Update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/reviews_review_id_body'
+    delete:
+      summary: Delete Review
+      parameters:
+      - name: review_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Review berhasil di Delete
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        id:
+          type: integer
+        nama:
+          type: string
+        tour:
+          type: string
+        rating:
+          type: integer
+        date_go:
+          type: string
+          format: date-time
+        go_with:
+          type: string
+        review:
+          type: string
+        title_review:
+          type: string
+    reviews_body:
+      type: object
+      properties:
+        id:
+          type: integer
+        nama:
+          type: string
+        tour:
+          type: string
+        rating:
+          type: integer
+        date_go:
+          type: string
+          format: date-time
+        go_with:
+          type: string
+        review:
+          type: string
+        title_review:
+          type: string
+    reviews_review_id_body:
+      type: object
+      properties:
+        id:
+          type: integer
+        nama:
+          type: string
+        tour:
+          type: string
+        rating:
+          type: integer
+        date_go:
+          type: string
+          format: date-time
+        go_with:
+          type: string
+        review:
+          type: string
+        title_review:
+          type: string
